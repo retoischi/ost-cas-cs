@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+
 INPUT="$1"
 TESTSSL="./testssl.sh/testssl.sh"
 
-[ -z "$INPUT" ] && exit 1
+if [ -z "$INPUT" ]; then
+  echo "Usage: $0 <input_csv_file>" >&2
+  exit 1
+fi
+
 [ ! -r "$INPUT" ] && exit 1
 
 awk -F',' '{ sub(/\r$/, "", $2); if ($2 ~ /\.ch$/) print $2 }' "$INPUT" \
